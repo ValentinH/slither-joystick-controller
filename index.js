@@ -16,16 +16,16 @@ controller.connect()
 
 //this is the main loop that is holding press event
 setInterval(function() {
-  if(CONTROLLER_PAUSED)
+  if (CONTROLLER_PAUSED)
     return
-  if(L2_PRESSED)
+  if (L2_PRESSED)
     robot.scrollMouse(1, "up");
-  if(R2_PRESSED)
+  if (R2_PRESSED)
     robot.scrollMouse(1, "down");
 }, 16)
 
 controller.on('left:move', function(data) {
-  if(CONTROLLER_PAUSED)
+  if (CONTROLLER_PAUSED)
     return
   if (data.x > LOW_THRESHOLD && data.x < HIGH_THRESHOLD && data.y > LOW_THRESHOLD && data.y < HIGH_THRESHOLD)
     return
@@ -37,7 +37,7 @@ controller.on('left:move', function(data) {
 })
 
 controller.on('x:press', function() {
-  if(CONTROLLER_PAUSED)
+  if (CONTROLLER_PAUSED)
     return
   robot.mouseToggle('down', 'left');
 })
@@ -64,6 +64,10 @@ controller.on('r2:release', function() {
 
 controller.on('start:press', function() {
   CONTROLLER_PAUSED = !CONTROLLER_PAUSED
+})
+
+controller.on('select:press', function() {
+  center = robot.getMousePos()
 })
 
 function mapJoystickToPixels (joystickPos, screenStartPos) {
