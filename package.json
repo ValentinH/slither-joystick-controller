@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "node-gamepad": "^0.1.15",
+    "node-notifier": "^4.6.1",
     "robotjs": "^0.4.5"
   }
 }

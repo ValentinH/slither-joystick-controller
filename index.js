@@ -1,11 +1,12 @@
 var GamePad = require('node-gamepad'),
-  robot = require("robotjs")
+  robot = require("robotjs"),
+  notifier = require('node-notifier')
 
 var screenSize = robot.getScreenSize()
 var center = { x: screenSize.width / 2, y: screenSize.height / 2 }
 
-var LOW_THRESHOLD = 50,
-  HIGH_THRESHOLD = 200,
+var LOW_THRESHOLD = 5,
+  HIGH_THRESHOLD = 250,
   MAX_MOVE_OFFSET = 100,
   L2_PRESSED = false,
   R2_PRESSED = false,
@@ -46,6 +47,12 @@ controller.on('x:release', function() {
   robot.mouseToggle('up', 'left');
 })
 
+controller.on('triangle:press', function() {
+  if (CONTROLLER_PAUSED)
+    return
+  robot.keyTap('enter');
+})
+
 controller.on('l2:press', function() {
   L2_PRESSED = true
 })
@@ -64,6 +71,10 @@ controller.on('r2:release', function() {
 
 controller.on('start:press', function() {
   CONTROLLER_PAUSED = !CONTROLLER_PAUSED
+  if(CONTROLLER_PAUSED)
+    notify('Paused')
+  else
+    notify('Listening')
 })
 
 controller.on('select:press', function() {
@@ -78,4 +89,12 @@ function mapJoystickToPixels (joystickPos, screenStartPos) {
 
 function scale (valueIn, baseMin, baseMax, limitMin, limitMax) {
   return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin;
+}
+
+function notify(msg) {
+  notifier.notify({
+    title: 'Slither Controller',
+    message: msg,
+    timeout: 2
+  });
 }
