@@ -1,0 +1,15 @@
+{
+  "name": "slither-joystick-controller",
+  "version": "0.0.0",
+  "description": "Simple script to bind joystick controller to Slither mouse events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Valentin Hervieu <valentin@hervi.eu>",
+  "license": "MIT",
+  "dependencies": {
+    "node-gamepad": "^0.1.15",
+    "robotjs": "^0.4.5"
+  }
+}
