@@ -1,6 +1,6 @@
 {
   "name": "slither-joystick-controller",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple script to bind joystick controller to Slither mouse events.",
   "main": "index.js",
   "scripts": {

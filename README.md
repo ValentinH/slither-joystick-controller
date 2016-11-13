@@ -15,7 +15,7 @@ npm i slither-joystick-controller
 
 ## How to run
 
-1. go in the `slither-joystick-controller` folder
+1. go to the `node_modules/slither-joystick-controller` folder
 2. run `node index.js` or `node index.js supported/controller/here`
 
 ### Supported Controllers

@@ -31,6 +31,7 @@ catch (e) {
 //this is the main loop that is holding press event
 startEventLoop()
 bindControllerListeners()
+console.log('Listening on controller: ' + controller_type)
 
 function startEventLoop () {
   return setInterval(function() {
