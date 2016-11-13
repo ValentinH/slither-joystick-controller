@@ -15,8 +15,8 @@ npm i slither-joystick-controller
 
 ## How to run
 
-1) go in the `slither-joystick-controller` folder
-2) run `node index.js` or `node index.js supported/controller/here`
+1. go in the `slither-joystick-controller` folder
+2. run `node index.js` or `node index.js supported/controller/here`
 
 ### Supported Controllers
 - ps3/dualshock3 (default)
