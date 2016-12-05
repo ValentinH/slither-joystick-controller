@@ -9,6 +9,7 @@ var DEFAULT_CONTROLLER = 'ps3/dualshock3',
   LOW_THRESHOLD = 5,
   HIGH_THRESHOLD = 250,
   MAX_MOVE_OFFSET = 100,
+  ANGLE = 0,
   MOUSE_X = center.x,
   MOUSE_Y = center.y,
   L2_PRESSED = false,
@@ -42,6 +43,9 @@ function startEventLoop () {
     if (R2_PRESSED)
       robot.scrollMouse(1, 'down')
 
+    MOUSE_X = center.x + Math.cos(ANGLE) * MAX_MOVE_OFFSET
+    MOUSE_Y = center.y + Math.sin(ANGLE) * MAX_MOVE_OFFSET
+
     robot.moveMouse(MOUSE_X, MOUSE_Y)
   }, 16)
 }
@@ -52,8 +56,7 @@ function bindControllerListeners () {
       return
     if (data.x > LOW_THRESHOLD && data.x < HIGH_THRESHOLD && data.y > LOW_THRESHOLD && data.y < HIGH_THRESHOLD)
       return
-    MOUSE_X = mapJoystickToPixels(data.x, center.x)
-    MOUSE_Y = mapJoystickToPixels(data.y, center.y)
+    ANGLE = getAngle(data.x - 255 / 2, data.y - 255 / 2)
   })
 
   controller.on('x:press', function() {
@@ -97,20 +100,12 @@ function bindControllerListeners () {
   })
 
   controller.on('select:press', function() {
-    if (CONTROLLER_PAUSED)
-      return
     center = robot.getMousePos()
   })
 }
 
-function mapJoystickToPixels (joystickPos, screenStartPos) {
-  var offset = scale(joystickPos, 0, 255, -MAX_MOVE_OFFSET, MAX_MOVE_OFFSET)
-  return screenStartPos + offset
-
-}
-
-function scale (valueIn, baseMin, baseMax, limitMin, limitMax) {
-  return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin
+function getAngle (x, y) {
+  return Math.atan2(y, x)
 }
 
 function notify (msg) {
